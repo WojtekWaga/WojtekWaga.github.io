@@ -1,7 +1,6 @@
 ---
 layout: page
 title: Résumé
-subtitle: An awesome person
 ---
 
 <span style="float: right; "><a href="{{ '/assets/WojciechWaga.pdf' | prepend: site.baseurl }}"><strong>> Download as PDF</strong></a> </span>
