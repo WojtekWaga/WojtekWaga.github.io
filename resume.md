@@ -3,7 +3,7 @@ layout: page
 title: Résumé
 ---
 
-<span style="float: right; "><a href="{{ '/assets/WojciechWaga.pdf' | prepend: site.baseurl }}"><strong>> Download as PDF</strong></a> </span>
+<span style="float: right; "><a href="{{ '/assets/WojciechWaga.pdf' | prepend: site.baseurl }}"><strong>Download as PDF</strong></a> </span>
 <br>
 
 ## Education

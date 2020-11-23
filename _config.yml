@@ -11,6 +11,7 @@ author:
   linkedin: wojciech-waga
   email: wojciech.waga+pa@gmail.com
 
+show_drafts: false
 
 # Syntax highlighting
 highlightstyle: 'agate'
