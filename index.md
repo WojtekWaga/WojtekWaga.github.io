@@ -7,5 +7,5 @@ sitemap:
 ---
 
 <div id="describe-text">
-	<p>This is a simple blog about programming, software architecture and other stuff.</p>
+	<p>This is a blog about programming, software architecture and other stuff.</p>
 </div>
