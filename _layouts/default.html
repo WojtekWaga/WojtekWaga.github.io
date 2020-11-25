@@ -3,7 +3,7 @@
 <head>
 {% include meta_tags/base.html %}
 {% include externals/styling.html %}
-{% if site.google_analytics and jekyll.environment == 'production' %}
+{% if jekyll.environment == 'production' %}
 {% include analytics.html %}
 {% endif %}
 </head>
