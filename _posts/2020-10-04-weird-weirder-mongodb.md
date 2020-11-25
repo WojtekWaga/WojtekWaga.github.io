@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: blog
 title: 'Weird, weirder, MongoDB'
 date: 2020-10-04 12:06:47
 categories: MongoDB
