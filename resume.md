@@ -13,7 +13,7 @@ title: Résumé
 
 
 ### Skills
-``` C++ Docker AWS MPI Linux Bash AMQP microservices SQL T-SQL Cloud MongoDB JavaScript MPI/OpenMP ``` 
+``` C++ Docker AWS Linux Bash AMQP microservices (T-)SQL Cloud MongoDB JavaScript MPI/OpenMP ``` 
 
 ### EXPERIENCE
 
