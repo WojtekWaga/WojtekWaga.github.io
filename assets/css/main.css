@@ -41,8 +41,40 @@
       color: #828282;
       font-weight: 400; }
 
+    table {
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      min-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  thead tr {
+    background-color: #008080;
+    color: #ffffff;
+    text-align: left;
+ }
+
+  th, td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #008080;
+}
+
   strong {
-    color: #16a085; }
+  }
 
   .wrapper {
     max-width: 800px;
@@ -58,7 +90,7 @@
   .logo {
     font-size: 200%;
     font-weight: 700;
-    color: #16a085;
+    color: #008080;
     display: block; }
 
   .menu {
@@ -439,3 +471,7 @@
   /* Custom */
   .go-home {
     text-align: center; }
+    
+    blockquote {
+    margin: 0;
+}
