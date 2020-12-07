@@ -13,18 +13,28 @@ Backups fall into one of the three categories: *Full*, *Differential* and *Incre
 
 Can we do better? It looks we can. We can keep differences from differential backups the same way we do for the full ones. And this is exactly the third category we were to discuss. Incremental backups are the most space efficient of the three. This, however comes at the price of comlpexity and durability. If you do a full backup on Jauary the first and incremental ones throughout the year you will need to apply 364 deltas if thing go awry on December 30th. If the risk of data corruption of one chunk is P then what you aim for is 364*P.
 
-**There** are a variety of media one can use for backup. They differ in size and 
-
+There are a variety of media one can use for backup. They differ in size, durability, cost and ease of use. Here are some examples:
 
 |Medium type | Capacity in GB | Life span in years | Price per TB |
 | ----------- | ----------- |
-|CD | 0.7 | 3-5 | $270 |
-|DVD | 4.7 | 3-5 | $48 |
+|CD | 0.7 | 5-10 | $270 |
+|DVD | 4.7 | 5-10 | $48 |
 |M-Disc | 4.7 | 1000 | $750 |
-|M-Disc BD-R | 25-100 | 1000 | $184 |
-|BD-R LTH | 25-100 | |
-|BD-R HTL | 25-100 | |
-|Memory cards | 0-1000 | |
-|SSD | 0-8000 | |
+|M-Disc BD-R | 25-100 | ? | $184 |
+|BD-R LTH | 25-100 | 5-10 |
+|BD-R HTL | 25-100 | 50-300 |
+|Memory cards | 0-1000 | ~5 |
+|SSD | 0-8000 | 5-10 |
 |HDD | 0-12000  | ~5 |
 |LTO | 2500-12000  | 30 | $11 |
+
+The question is: what does it mean for M-Disc to have a life-span of 1000 years? Does it always fail the year after? Do all the disks live that long? The short answer is no. 1000 years is the mean life span so you may expect half the disks to fail before or even way before. Milleniata, the company behind the brand also claims that 95% of disks will make it to around 500 years which gives more insight.
+
+By the looks of it there are three items worth attention here: LTO, M-Disc BD-R and BD-R HTL. LTO is not something you would use at home unless you have a [tape library](https://www.youtube.com/watch?v=CVN93H6EuAU) down in your basement. M-Disc BD-R and a normal BD-R are more common than not. They share the form factor and storage size of 25GB (BD-XL 100GB). M-Discs can be even read in normal BD players but it takes an M-Disc certified device to burn one. What's really different between the two is the price and the longevity claims. One can find some studies suggesting that both M-Disks and high quality BD-R are more or less the same in terms of longevity.
+
+Now, once we chose the medium type for our backup we have to find out where to store our off-site copy. There are a lot of choices here as well. But the choice is somewhat simpler. We will consider only cloud storage and providers supported by the tool we will use. 
+
+``` Bash
+$ duplicity
+```
+
