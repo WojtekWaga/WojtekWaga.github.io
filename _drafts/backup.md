@@ -9,7 +9,7 @@ As a saying goes, "There are two groups of people the ones who do backups and th
 
 Backups fall into one of the three categories: *Full*, *Differential* and *Incremental*. A full backup is no less than a copy of your data. For practical reasons this is not something you would do on a daily basis. For a 100GB worth of data you will get 1TB for 10 snapshots and so on. And the more snapshots you keep the better. If you keep only a single version and you destroy your data you have only a day or so to figure it out. Otherwise your change will propagate to this only copy and destroy it altogether. Differential backups can mitigate this problem by storing only changes from the last full backup. And to restore your backup you need to get to the last full backup and apply the differential one.
 
-<<picture differential backup>>
+ <<picture: differential backup>>
 
 Can we do better? It looks we can. We can keep differences from differential backups the same way we do for the full ones. And this is exactly the third category we were to discuss. Incremental backups are the most space efficient of the three. This, however comes at the price of comlpexity and durability. If you do a full backup on Jauary the first and incremental ones throughout the year you will need to apply 364 deltas if thing go awry on December 30th. If the risk of data corruption of one chunk is P then what you aim for is 364*P.
 
@@ -47,5 +47,82 @@ Our requirements for a perfect backup solution:
 
 ``` Bash
 $ duplicity one_directory file:///home/user/another_directory
+Local and Remote metadata are synchronized, no sync needed.
+Last full backup date: none
+No signatures found, switching to full backup.
+--------------[ Backup Statistics ]--------------
+StartTime 1607801729.48 (Sat Dec 12 20:35:29 2020)
+EndTime 1607801732.47 (Sat Dec 12 20:35:32 2020)
+ElapsedTime 2.99 (2.99 seconds)
+SourceFiles 2
+SourceFileSize 100004096 (95.4 MB)
+NewFiles 2
+NewFileSize 100004096 (95.4 MB)
+DeletedFiles 0
+ChangedFiles 0
+ChangedFileSize 0 (0 bytes)
+ChangedDeltaSize 0 (0 bytes)
+DeltaEntries 2
+RawDeltaSize 100000000 (95.4 MB)
+TotalDestinationSizeChange 100256475 (95.6 MB)
+Errors 0
+-------------------------------------------------
 ```
 
+This will create at least 3 files with similar names to the ones below: 
+``` Bash
+-rw------- 1 w w  599 gru 9 duplicity-full.20201212T175748Z.manifest
+-rw------- 1 w w  96M gru 9 duplicity-full.20201212T175748Z.vol1.difftar.gz
+-rw------- 1 w w 574K gru 9 duplicity-full-signatures.20201212T175748Z.sigtar.gz
+```
+
+* *manifest* - contains information of the files (or part of the files) included in the backup volumes along with hashes of the volumes 
+* *difftar* - actual data split into volumes of a specified size (current default: 200MB, previously: 25MB)
+* *signature* - hashes of data in the backup, this can be used to find out what has changed since the last backup and to generate delta
+
+If we rerun this commandt will find out first that there is a full backup and send only changes.
+
+``` Bash
+Local and Remote metadata are synchronized, no sync needed.
+Last full backup date: Sat Dec 12 20:35:29 2020
+--------------[ Backup Statistics ]--------------
+StartTime 1607801828.96 (Sat Dec 12 20:37:08 2020)
+EndTime 1607801828.96 (Sat Dec 12 20:37:08 2020)
+ElapsedTime 0.00 (0.00 seconds)
+SourceFiles 2
+SourceFileSize 100004096 (95.4 MB)
+NewFiles 0
+NewFileSize 0 (0 bytes)
+DeletedFiles 0
+ChangedFiles 0
+ChangedFileSize 0 (0 bytes)
+ChangedDeltaSize 0 (0 bytes)
+DeltaEntries 0
+RawDeltaSize 0 (0 bytes)
+TotalDestinationSizeChange 20 (20 bytes)
+Errors 0
+-------------------------------------------------
+```
+
+And we will get files for incremental backup in the directory along with the old ones.
+
+``` Bash
+-rw------- 1 w w  170 gru 9 duplicity-full.20201212T193529Z.manifest
+-rw------- 1 w w  96M gru 9 duplicity-full.20201212T193529Z.vol1.difftar.gz
+-rw------- 1 w w 573K gru 9 duplicity-full-signatures.20201212T193529Z.sigtar.gz
+-rw------- 1 w w  149 gru 12 duplicity-inc.20201212T193529Z.to.20201212T193708Z.manifest
+-rw------- 1 w w   20 gru 12 duplicity-inc.20201212T193529Z.to.20201212T193708Z.vol1.difftar.gz
+-rw------- 1 w w   45 gru 12 duplicity-new-signatures.20201212T193529Z.to.20201212T193708Z.sigtar.gz
+```
+
+As we want to send our data to a public cloud we need to make sure everyghing is encrypted so that nobody can look into our data and digitally signed to prevent any tampering. To achive this goal duplicity uses GPG. You have two options to chose - symmetric and asymmetric encryption. Symmetric one will use algotithm like AES and you will be able to encrypt and decrypt the data by providing the same password. This option does not let you to sign the archives, so to make sure nobody changed your backup you would need to keep the manifest files elswhere as they contain a hash (SHA1 hash that's rather a poor option) that is verified. If you go the asymmetric route you will need to generate a pair of a public and a private keys. This will give you more options likes automatically signing of the archives or not storing decryption info on the machine doing backups (it will not be able to do a restore) the drawback is that you need to keep a pair of keys that cannot be lost and it's not the best idea to keep them next to backups.
+
+[AWS S3](https://aws.amazon.com/s3/) is a cloud based storage (one of many) that lets you upload and download files from CLI (Command Line Interface) tool which is what we need to make this fully automatic. S3 pricing can be found [here](https://aws.amazon.com/s3/pricing/?nc=sn&loc=4). There are different classes of storage provided by S3. We will focus on three: *S3 Standard - IA (Infrequent Access)*, *S3 Glacier* and *S3 Glacier Deep Archive* and we will refer to the first one as a [hot storage](https://www.backblaze.com/blog/whats-the-diff-hot-and-cold-data-storage/) and the rest as a cold one. Here's a short summary:
+
+| Storage class | Price per TB per month | Availability | Retrieval time | Retrieval cost per TB | Minimum storage duration charge | 
+| ------------- | ---------------------- | ------------ | -------------- | --------------------- | ------------------------------- |
+| S3 Standard-IA | $12.5 | 99% | milliseconds | $10 | 30 days |
+| S3 Glacier | $4 | 99.9% | minutes (more expensive) or hours | 2.5%/$10/$30 | 90 day|
+| S3 Glacier Deep Archive | $0.99 | 99.9% | 12 hours | $3/$20 | 180 days |
+
+One more thing worth mentioning is that all data transfers to AWS are free of charge but they charge a whopping **$90 for 1 TB out**. Having HDD in the price range of $30 / 1TB it makes perfect sense to do a backup to a local HDD and AWS simultaneously and to serve virtually all your restores locally leaving AWS backup only for total disaster. This use case won't set you back only around $1 per TB of storage and no transfer fees.
