@@ -7,11 +7,9 @@ As a saying goes, "There are two groups of people the ones who do backups and th
 
 *3-2-1 backup strategy* that is recognized as a best practise tells you to keep 3 copies of data on 2 different media types with 1 off-site backup. Different media types will give you security not only against things like moisture or strong electomagnetic radiation but also different media types tend to age at different rates.
 
-Backups fall into one of the three categories: *Full*, *Differential* and *Incremental*. A full backup is no less than a copy of your data. For practical reasons this is not something you would do on a daily basis. For a 100GB worth of data you will get 1TB for 10 snapshots and so on. And the more snapshots you keep the better. If you keep only a single version and you destroy your data you have only a day or so to figure it out. Otherwise your change will propagate to this only copy and destroy it altogether. Differential backups can mitigate this problem by storing only changes from the last full backup. And to restore your backup you need to get to the last full backup and apply the differential one.
+Backups fall into one of the three categories: *Full*, *Differential* and *Incremental*. A full backup is no less than a copy of your data. For practical reasons this is not something you would do on a daily basis. For a 100GB worth of data you will get 1TB after only 10 snapshots. And the more snapshots you keep the better. If you keep only a single version and you destroy your data you have only a day or so to figure it out. Otherwise your change will propagate to this only copy and destroy it altogether. Differential backups can mitigate this problem by storing only changes from the last full backup. And to restore your backup you need to get to the last full backup and apply the differential one.
 
- <<picture: differential backup>>
-
-Can we do better? It looks we can. We can keep differences from differential backups the same way we do for the full ones. And this is exactly the third category we were to discuss. Incremental backups are the most space efficient of the three. This, however comes at the price of comlpexity and durability. If you do a full backup on Jauary the first and incremental ones throughout the year you will need to apply 364 deltas if thing go awry on December 30th. If the risk of data corruption of one chunk is P then what you aim for is 364*P.
+Can we do better? Of course we can. We can keep differences from differential backups the same way we do for the full ones. And this is exactly the third category we were to discuss. Incremental backups are the most space efficient of the three. This, however comes at the price of comlpexity and durability. If you do a full backup on Jauary the first and incremental ones throughout the year you will need to apply 364 deltas if thing go awry on December 30th. If the risk of data corruption of one chunk is P then what you aim for is 364*P.
 
 There are a variety of media one can use for backup. They differ in size, durability, cost and ease of use. Here are some examples:
 
@@ -166,3 +164,13 @@ A working AWS version will look like this:
 16      --include=/mnt/disk2 \
 17      / ${DST} 2>&1 >> logfile.log
 ```
+
+We just made our first backup to could. A very expensive backup. The reason is that we are using S3 Standard at $23/TB. To change this we have to log in to the AWS Console and do some tricks. We will configure AWS to move our backup from expensive to cheap storage automatically a so-calles *lifecycle rule*. First open S3 console and select your bucket. Go to *management* -> *create lifecycle rule* and you will see this form:
+
+![Lifecycle](/assets/img/backup_lifecycle.png)
+
+Give your rule a name, here "backup", select file names the rule applies to, here "d_arch". These are the only chunky files we have. It makes little sense to move other files as they are smaller and possibly needed to create new backups and we do not want to read from the *glacier* classes unless absolutely required.
+
+![Transition](/assets/img/backup_transition.png)
+
+Set transition time to *0 days* this will make your files to migrate soon after being added reducing the use time of high cost storage. CLick "create rule at the very bottom and now you are done. You may consider adding automated removal of old backups from glacier by adding expiration rules, or you can manually remove them after half a year or more (you alway pay for half a year upfront in glacier deep arhive). 
