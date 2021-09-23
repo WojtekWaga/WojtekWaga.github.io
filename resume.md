@@ -6,14 +6,17 @@ title: Résumé
 <span style="float: right; "><a href="{{ '/assets/WojciechWaga.pdf' | prepend: site.baseurl }}"><strong>Download as PDF</strong></a> </span>
 <br>
 
-## Education
+### EDUCATION
 **Ph.D.** 2012 University of Wrocław, Department of Genomics, Wrocław. *Computer modelling of the phenomena accompanying complementation of haplotypes.*
 
 **M.Sc** 2007 University of Wrocław, Institute of Computer Science, Wrocław. *Computer modelling of evolutionary processes.*
 
 
-### Skills
+### SKILLS
 ``` C++ Docker AWS Linux Bash AMQP microservices (T-)SQL Cloud MongoDB JavaScript MPI/OpenMP ``` 
+
+### CERTIFICATIONS
+ * MongoDB Certified Developer ([722361570](https://university.mongodb.com/certification/certificate/722361570))
 
 ### EXPERIENCE
 
