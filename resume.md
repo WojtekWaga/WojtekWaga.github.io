@@ -20,7 +20,8 @@ title: Résumé
 
 ### EXPERIENCE
 
-**Solution architect (VP)** - Credit Suisse <span style="float: right; ">2013-now</span>  
+**Sr. Software architect** - Microsoft (via DXC) <span style="float: right; ">2013-now</span>  
+**Solution architect (VP)** - Credit Suisse <span style="float: right; ">2013-2021</span>  
 **C++ application developer** - Credit Suisse <span style="float: right; ">2012-2013</span>  
 **Computer programmer** - WCSS <span style="float: right; ">2009-2013</span>  
 **System administrator** - WCSS <span style="float: right; ">2007-2009</span>  
