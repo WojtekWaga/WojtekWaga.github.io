@@ -1,7 +1,6 @@
 ---
 layout: blog
 title: MongoDB Exercises
-date: 2021-10-17 21:30:47
 categories: MongoDB 
 ---
 
@@ -34,14 +33,14 @@ Download all the 3 files and load them into "airbnb" database. The collections s
 
 ### Exercise 1: Check document count for each collecion.
 
-Expected output:
+**Expected output:**
 ``` bash
 [ { listings: 11583 }, { reviews: 355004 }, { calendar: 4227814 } ]
 ```
 
 ### Exercise 2: Find the three most popular amenities.
 
-Expected output:
+**Expected output:**
 ``` bash
 [
   { _id: 'Wifi', count: 11067 },
@@ -56,7 +55,7 @@ hint: amenities field is in a pretty wierd format - string containing an array, 
 
 Please keep in mind that people sometimes put things like "wifi - 15Mbps" instead of just wifi of Wifi.
 
-Expected output:
+**Expected output:**
 386
 
 More exercises to come.
