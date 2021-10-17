@@ -22,13 +22,47 @@ docker exec -ti mongo mongosh
 
 et voila, you are connected to your very own MongoDB instance.
 
+## Exercises
+
 ### Exercise 0: Load Airbnb dataset
 
 Inside airbnb offers multiple files to download for each city but for now we will focus on only three of them: listings.csv.gz containing detailed information on places to book, calendar.csv.gz with information on actual bookings and reviews.csv.gz with, guess what, users' reviews. 
 
 Download all 3 files and load them into "airbnb" database. The collections should be named listings, calendar and reviews.
 
-#### Answer:
+
+### Exercise 1: Check document count for each collecion.
+
+Expected output:
+``` bash
+[ { listings: 11583 }, { reviews: 355004 }, { calendar: 4227814 } ]
+```
+
+### Exercise 2: Find the three most popular amenities.
+
+Expected output:
+``` bash
+[
+  { _id: 'Wifi', count: 11067 },
+  { _id: 'Kitchen', count: 10756 },
+  { _id: 'Heating', count: 10454 }
+]
+```
+
+hint: amenities field is in a pretty wierd format - string containing an array, you will get much simpler query if you prepare your data first and change this to a normal array.
+
+### Exercise 3: Find the number of places with no wifi
+
+Please keep in mind that people sometimes put things like "wifi - 15Mbps" instead of just wifi of Wifi.
+
+Expected output:
+386
+
+More exercises to come.
+
+## Answers
+
+### Exercise 0
 
 Non docker version:
 ``` bash
@@ -55,42 +89,15 @@ zcat ./calendar.csv.gz | mongoimport --db airbnb --collection calendar --type cs
 
 and with iteration over all compressed files in a directory... just kidding, but you shoud try on your own :]
 
-Congratulations, you have a ready to use dataset and can proceed to any exercise you want.
-
 ### Exercise 1
 
-Check document count for each collecion.
-
-my output:
-``` bash
-[ { listings: 9625 }, { reviews: 190972 }, { calendar: 3512760 } ]
-```
-
-#### Answer
 ``` bash
 test> use airbnb
 switched to db airbnb
 airbnb> db.getCollectionNames().map( x=> ({[x] : db[x].countDocuments()}) )
-[ { listings: 11583 }, { reviews: 355004 }, { calendar: 4227814 } ]
 ```
 
 ### Exercise 2
-
-Find the three most popular amenities.
-
-my outout:
-``` bash
-[
-  { _id: 'Wifi', count: 11067 },
-  { _id: 'Kitchen', count: 10756 },
-  { _id: 'Heating', count: 10454 }
-]
-```
-
-hint: amenities field is in a pretty wierd format - string containing an array, you will get much simpler query if you prepare your data first and change this to a normal array.
-
-answer:
-
 deserialize array:
 ``` bash
 db.listings.updateMany({}, [ {
@@ -125,18 +132,11 @@ description:
 * sort - sort in descending order
 * limit - pick top 3
 
-### Exercise 3 Find the number of places with no wifi
 
 
-
-answer:
-
-this does not work:
+### Exercise 3
 ```bash
-db.listings.find({"amenities":{$ne: "Wifi"}}).count()
+db.listings.find({"amenities":{$not: /wifi/i}}).count()
 ```
-
-because some places are having the likes of 'Wifi – 15 Mbps' we need to search all descriptions for case insensitive text match for "wifi" to cover "Fast wifi" as well as "Wifi - 15Mbps".
-
 
 
