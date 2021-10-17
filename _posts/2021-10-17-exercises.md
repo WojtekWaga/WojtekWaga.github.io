@@ -1,6 +1,7 @@
 ---
-layout: page
+layout: blog
 title: MongoDB Exercises
+date: 2021-10-17 21:30:47
 categories: MongoDB 
 ---
 
