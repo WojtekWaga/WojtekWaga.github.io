@@ -4,17 +4,17 @@ title: MongoDB Exercises
 categories: MongoDB 
 ---
 
-When I was searching for some exercises to practise querying MongoDB there was little to be found on the internet. All I found was rather simple but what is more important it was all a synthetic. It was like the usual FAQ section on a typical company's webpage covering questions like: "How can you keep proces so low?" that I cannot imagine being ever asked.
+When I was searching for some exercises to practise querying MongoDB there was little to be found on the internet. All I found was rather simple but what is more important it was all synthetic examples. It was like the usual FAQ section on a typical company's webpage covering questions like: "How can you keep prices so low?" that I cannot imagine being ever asked.
 
-Each exercise is in a separate section and there is no particular order except for the task 0 which needs to come first as it's about data preparation. We will use apublicly available dataset from Airbnb hosted by [Inside Airbnb](http://insideairbnb.com/get-the-data.html). Please consider supporting them. I chose Vienna data set and my answers will be based on it but you can use whichever is near and dear to you. Just you may need to run my queries agains it to compare the result if your query looks different.
+Each exercise here is in a separate section and there is no particular order except for the exercise 0 which needs to come first as it's about data preparation. We will use a publicly available dataset from Airbnb hosted by [Inside Airbnb](http://insideairbnb.com/get-the-data.html) (please consider supporting them). I have chosen Vienna data set and my answers will be based on it but you can use whichever is near and dear to you. Just you may need to run my queries against it to get the expected output should your query looks different.
 
-All exercises assume you have an access to MongoDB 5.x and preferably the mongosh shell. If you don't have a MongoDB instance at your disposal you can run one instantly using docker:
+All exercises assume you have access to MongoDB 5.x and imost preferably the mongosh shell. If you don't have a MongoDB instance at your disposal you can run one instantly using docker:
 
 ``` bash
 docker run --name mongo -d mongo:5.0.3
 ``` 
 
-and once finished and you have your shell back:
+once finished and you have your shell back:
 
 ``` bash
 docker exec -ti mongo mongosh
@@ -28,7 +28,7 @@ et voila, you are connected to your very own MongoDB instance.
 
 Inside airbnb offers multiple files to download for each city but for now we will focus on only three of them: listings.csv.gz containing detailed information on places to book, calendar.csv.gz with information on actual bookings and reviews.csv.gz with, guess what, users' reviews. 
 
-Download all 3 files and load them into "airbnb" database. The collections should be named listings, calendar and reviews.
+Download all the 3 files and load them into "airbnb" database. The collections should be named after files: listings, calendar and reviews.
 
 
 ### Exercise 1: Check document count for each collecion.
