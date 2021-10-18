@@ -125,6 +125,8 @@ db.listings.aggregate([
 ])
 ``` 
 
+In case you are wondering why we need this: 'body: "function(x){return JSON.parse(x)}' instead of just: 'body: JSON.parse' or 'x=>JSON.parse(x)'. Give them a try. I have just raised this as a [SERVER-60770](https://jira.mongodb.org/browse/SERVER-60770). I mentioned only the first case but adding proper JS semantics to this mechanism should fix both altogether.
+
 description:
 * project - remove all unnecessary fields from further processing
 * unwind - changes array of elements i.e. [1,2,3] into separate documents 1, 2 ,3
