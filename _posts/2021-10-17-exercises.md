@@ -58,6 +58,14 @@ Please keep in mind that people sometimes put things like "wifi - 15Mbps" instea
 **Expected output:**
 386
 
+### Exercise 4: You want to store temperature in your room every minute, but to keep numbers of documents low you want to store temperatures for each day in an array and produce only one document a day.
+
+**Sample document in a collection:**
+``` bash
+test> db.temperatures.findOne({},{_id:0})
+{ day: 'Tue Oct 19 2021', t: [ 18, 18.5 ... 19, 18 ] }
+```
+
 More exercises to come.
 
 ## Answers
@@ -141,4 +149,8 @@ description:
 db.listings.find({"amenities":{$not: /wifi/i}}).count()
 ```
 
+### Exercise 4
+```bash
+db.temperatures.updateOne({"day":ISODate().toDateString()}, {$push:{"t":42}}, {upsert:true})
+```
 
