@@ -13,18 +13,25 @@ title: Résumé
 
 
 ### SKILLS
-``` C++ Docker AWS Linux Bash AMQP microservices (T-)SQL Cloud MongoDB JavaScript MPI/OpenMP ``` 
+* **MongoDB** - 6 years, two projects, trainer. Found and reported 2 bugs in MongoDB engine: [SERVER-60770](https://jira.mongodb.org/browse/SERVER-60770), [SERVER-63126](https://jira.mongodb.org/browse/SERVER-63126)
+* **Docker** - along with docker-compose, docker swarm, docker machine
+* **Kubernetes** - debugging networking issues, creating configurable deployments (with Helm)
+* **Linux** - x86 and ARM distros
+* **Microservices** - design and implementation of systems and compoennt level APIs
+* **Coding** - C++, JavaScript, Python
+* **Databases** - Oracle, MSSQL, Sybase, Sqlite, MongoDB\
+* **Microcontrollers** - ESP32, ESP8266, AVR
 
 ### CERTIFICATIONS
  * MongoDB Certified Developer ([722361570](https://university.mongodb.com/certification/certificate/722361570))
 
 ### EXPERIENCE
 
-**Sr. Software architect** - Microsoft (via DXC) <span style="float: right; ">2021-now</span>  
-**Solution architect (VP)** - Credit Suisse <span style="float: right; ">2013-2021</span>  
-**C++ application developer** - Credit Suisse <span style="float: right; ">2012-2013</span>  
-**Computer programmer** - WCSS <span style="float: right; ">2009-2013</span>  
-**System administrator** - WCSS <span style="float: right; ">2007-2009</span>  
+* **Sr. Software architect** - Microsoft (via DXC) <span style="float: right; ">2021-now</span>  
+* **Solution architect (VP)** - Credit Suisse <span style="float: right; ">2013-2021</span>  
+* **C++ application developer** - Credit Suisse <span style="float: right; ">2012-2013</span>  
+* **Computer programmer** - WCSS <span style="float: right; ">2009-2013</span>  
+* **System administrator** - WCSS <span style="float: right; ">2007-2009</span>  
 
 
 ### Hobby
