@@ -11,6 +11,6 @@ title: Hire me
 * Porting apps from other DBs to **MongoDB**
 * Apps migration to **AWS cloud**
 * **API** design
-* Apps containerization
+* Running microservices at scale
 
 
