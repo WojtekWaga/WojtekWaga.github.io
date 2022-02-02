@@ -11,6 +11,6 @@ title: Hire me
 * Porting apps from other DBs to **MongoDB**
 * Apps migration to **AWS cloud**
 * **API** design
-* Software architecture (distributed systems, network policies, high availability, microservices, running at scale)
-* Handling data at scale (CAP, ACID, distributed consensus, (strong, eventual, causal etc.) consistency)
+* **Software architecture** (distributed systems, network policies, high availability, microservices at scale)
+* **Handling data** at scale (CAP, ACID, distributed consensus, (strong, eventual, causal etc.) consistency)
 
