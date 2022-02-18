@@ -19,8 +19,9 @@ title: Résumé
 * **Linux** - x86 and ARM distros
 * **Microservices** - design and implementation of systems and compoennt level APIs
 * **Coding** - C++, JavaScript, Python
-* **Databases** - Oracle, MSSQL, Sybase, Sqlite, MongoDB\
+* **Databases** - Oracle, MSSQL, Sybase, Sqlite, MongoDB
 * **Microcontrollers** - ESP32, ESP8266, AVR
+* **AWS** - migration of legacy apps to cloud
 
 ### CERTIFICATIONS
  * MongoDB Certified Developer ([722361570](https://university.mongodb.com/certification/certificate/722361570))
