@@ -20,7 +20,7 @@ title: Résumé
 * **Microservices** - design and implementation of systems and compoennt level APIs
 * **Coding** - C++, JavaScript, Python
 * **Databases** - Oracle, MSSQL, Sybase, Sqlite, MongoDB
-* **Microcontrollers** - ESP32, ESP8266, AVR
+* **Microcontrollers** - ESP32, ESP8266
 * **AWS** - migration of legacy apps to cloud
 
 ### CERTIFICATIONS
@@ -28,7 +28,8 @@ title: Résumé
 
 ### EXPERIENCE
 
-* **Sr. Software architect** - Microsoft (via DXC) <span style="float: right; ">2021-now</span>  
+* **Sr. Software engineer** - Vay.io <span style="float: right; ">2022-now</span>
+* **Sr. Software architect** - Microsoft (via DXC) <span style="float: right; ">2021-2022</span>  
 * **Solution architect (VP)** - Credit Suisse <span style="float: right; ">2013-2021</span>  
 * **C++ application developer** - Credit Suisse <span style="float: right; ">2012-2013</span>  
 * **Computer programmer** - WCSS <span style="float: right; ">2009-2013</span>  
