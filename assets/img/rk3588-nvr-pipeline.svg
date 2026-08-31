@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="820" height="560" font-family="Quicksand, 'Segoe UI', sans-serif" role="img" aria-label="RK3588 NVR pipeline: one RTSP mainstream is parsed once, the encoded access units feed a RAM ring buffer that is muxed to an mp4 on an event, and the same stream is decoded once on the VPU into an NV12 DMA-BUF that RGA fans out to the NPU detector and to the HDMI display.">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#666"/>
+    </marker>
+    <style>
+      .b  { fill:#f7f7f7; stroke:#c2c2c2; stroke-width:1.5; }
+      .hw { fill:#e4f0f0; stroke:#008080; stroke-width:1.8; }
+      .ram{ fill:#f2eef7; stroke:#7a5ea8; stroke-width:1.8; }
+      .t  { font-size:13.5px; font-weight:600; fill:#012; }
+      .s  { font-size:11px; fill:#4a4a4a; }
+      .c  { font-size:10.5px; fill:#008080; font-weight:600; }
+      .cr { font-size:10.5px; fill:#7a5ea8; font-weight:600; }
+      .l  { font-size:10.5px; fill:#828282; }
+      .w  { stroke:#666; stroke-width:1.6; fill:none; marker-end:url(#a); }
+      .wn { stroke:#666; stroke-width:1.6; fill:none; }
+    </style>
+  </defs>
+
+  <!-- ── top row: one connection, parsed once ───────────────────────── -->
+  <rect class="b"  x="16"  y="24" width="160" height="58" rx="6"/>
+  <text class="t"  x="96"  y="47" text-anchor="middle">IP camera</text>
+  <text class="s"  x="96"  y="64" text-anchor="middle">2880×1620 H.265</text>
+  <text class="s"  x="96"  y="77" text-anchor="middle">20 fps, one RTSP</text>
+
+  <rect class="b"  x="216" y="24" width="136" height="58" rx="6"/>
+  <text class="t"  x="284" y="49" text-anchor="middle">go2rtc</text>
+  <text class="s"  x="284" y="66" text-anchor="middle">fans one camera</text>
+  <text class="s"  x="284" y="79" text-anchor="middle">out to N readers</text>
+
+  <rect class="b"  x="392" y="24" width="184" height="58" rx="6"/>
+  <text class="t"  x="484" y="49" text-anchor="middle">rtspsrc → parsebin</text>
+  <text class="s"  x="484" y="66" text-anchor="middle">no decode yet —</text>
+  <text class="s"  x="484" y="79" text-anchor="middle">access units only</text>
+
+  <path class="w" d="M176,53 H210"/>
+  <path class="w" d="M352,53 H386"/>
+
+  <!-- ── right branch: the encoded ring ──────────────────────────────── -->
+  <path class="wn" d="M576,53 H700"/>
+  <path class="w"  d="M700,53 V134"/>
+  <rect class="ram" x="616" y="136" width="192" height="66" rx="6"/>
+  <text class="t"  x="712" y="159" text-anchor="middle">Clip ring (RAM)</text>
+  <text class="s"  x="712" y="176" text-anchor="middle">encoded AUs, ~19 s</text>
+  <text class="cr" x="712" y="193" text-anchor="middle">never decoded</text>
+
+  <path class="w" d="M712,202 V250"/>
+  <text class="l" x="722" y="228">on event</text>
+  <rect class="b" x="616" y="252" width="192" height="66" rx="6"/>
+  <text class="t" x="712" y="275" text-anchor="middle">mp4mux → /data</text>
+  <text class="s" x="712" y="292" text-anchor="middle">stream copy, 11 s clip</text>
+  <text class="cr" x="712" y="309" text-anchor="middle">no re-encode</text>
+
+  <!-- ── decode once, on the VPU ─────────────────────────────────────── -->
+  <path class="wn" d="M484,82 V108 H328"/>
+  <path class="w"  d="M328,108 V138"/>
+  <rect class="hw" x="232" y="140" width="192" height="66" rx="6"/>
+  <text class="t"  x="328" y="163" text-anchor="middle">VPU · mppvideodec</text>
+  <text class="s"  x="328" y="180" text-anchor="middle">2880×1620 HEVC</text>
+  <text class="c"  x="328" y="197" text-anchor="middle">750 fps · 0.18 CPU-ms/frame</text>
+
+  <!-- distribution bus -->
+  <path class="wn" d="M328,206 V240 M182,240 H474 M182,240 V250 M474,240 V250"/>
+  <path class="w" d="M182,244 V252"/><path class="w" d="M474,244 V252"/>
+  <text class="l" x="340" y="232">one NV12 DMA-BUF fd — no copy, no CPU touch</text>
+
+  <!-- ── RGA fan-out ─────────────────────────────────────────────────── -->
+  <rect class="hw" x="92"  y="252" width="180" height="66" rx="6"/>
+  <text class="t"  x="182" y="275" text-anchor="middle">RGA letterbox</text>
+  <text class="s"  x="182" y="292" text-anchor="middle">→ 640×384 RGB</text>
+  <text class="c"  x="182" y="309" text-anchor="middle">0.125 CPU-ms</text>
+
+  <rect class="hw" x="384" y="252" width="180" height="66" rx="6"/>
+  <text class="t"  x="474" y="275" text-anchor="middle">RGA scale</text>
+  <text class="s"  x="474" y="292" text-anchor="middle">→ display tile</text>
+  <text class="c"  x="474" y="309" text-anchor="middle">0.295 CPU-ms</text>
+
+  <path class="w" d="M182,318 V360"/>
+  <path class="w" d="M474,318 V360"/>
+
+  <!-- ── consumers ───────────────────────────────────────────────────── -->
+  <rect class="hw" x="92"  y="362" width="180" height="66" rx="6"/>
+  <text class="t"  x="182" y="385" text-anchor="middle">NPU · YOLO11s-pose</text>
+  <text class="s"  x="182" y="402" text-anchor="middle">fp16, 640×384</text>
+  <text class="c"  x="182" y="419" text-anchor="middle">55 ms · 44 inf/s total</text>
+
+  <rect class="hw" x="384" y="362" width="180" height="66" rx="6"/>
+  <text class="t"  x="474" y="385" text-anchor="middle">VOP2 → HDMI</text>
+  <text class="s"  x="474" y="402" text-anchor="middle">DRM/KMS scanout</text>
+  <text class="c"  x="474" y="419" text-anchor="middle">no GPU, no browser</text>
+
+  <!-- ── legend ──────────────────────────────────────────────────────── -->
+  <line x1="16" y1="464" x2="804" y2="464" stroke="#e0e0e0" stroke-width="1"/>
+  <rect class="hw"  x="16"  y="480" width="20" height="14" rx="3"/>
+  <text class="s"   x="44"  y="492">fixed-function silicon (VPU · RGA · NPU · VOP2)</text>
+  <rect class="ram" x="330" y="480" width="20" height="14" rx="3"/>
+  <text class="s"   x="358" y="492">RAM, compressed</text>
+  <rect class="b"   x="500" y="480" width="20" height="14" rx="3"/>
+  <text class="s"   x="528" y="492">software on the CPU cores</text>
+  <text class="l"   x="16"  y="524">Costs are measured CPU time, not wall time: the block does the work, the core is free. One camera shown; the box runs one such graph per camera.</text>
+  <text class="l"   x="16"  y="542">Measured on an Orange Pi 5 (RK3588, 8 GB), kernel 6.1.115, librknnrt 2.3.2 / RKNPU 0.9.8, librga 1.9.3 — 31 August 2026.</text>
+</svg>
