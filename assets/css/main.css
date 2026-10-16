@@ -153,10 +153,35 @@ tbody tr:last-of-type {
     vertical-align: middle;
     color: #828282; }
 
-  .post-teaser__month {
-    width: 100%;
-    text-align: center;
-  }
+  .post-teaser .tags {
+    display: block;
+    clear: both;
+    margin-top: 4px; }
+
+/* =Tags *//*************************************************************/
+  .tag {
+    display: inline-block;
+    margin: 0 6px 6px 0;
+    padding: 0 10px;
+    border: 1px solid #DDD;
+    border-radius: 12px;
+    font-size: 80%;
+    font-weight: 400;
+    line-height: 22px;
+    color: #828282; }
+
+  .tag:hover,
+  .tag--active {
+    border-color: #008080;
+    color: #008080; }
+
+  .tag-filter {
+    margin-bottom: 25px;
+    text-align: center; }
+
+  .post-tags {
+    margin: -20px 0 20px;
+    text-align: center; }
 
   .empty-post-list {
     font-size: 150%;
@@ -255,6 +280,9 @@ tbody tr:last-of-type {
       display: block;
       text-align: center;
       width: 100%; }
+
+    .post-teaser .tags {
+      text-align: center; }
 
   }
 

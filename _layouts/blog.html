@@ -2,6 +2,7 @@
 layout: default
 ---
 {% include page/title.html %}
+{% if page.tags.size > 0 %}<div class="post-tags">{% include tags.html tags=page.tags %}</div>{% endif %}
 
 {{ content }}
 

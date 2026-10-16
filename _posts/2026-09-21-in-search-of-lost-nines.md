@@ -3,7 +3,8 @@ layout: blog
 title: In search of lost nines
 subtitle: Fire, water, lightning, drones, and a DNS TTL nobody thought to lower.
 date: 2026-09-21 09:00:00
-categories: Cloud
+tags: [Cloud]
+permalink: /cloud/2026/09/21/in-search-of-lost-nines.html
 ---
 
 Under the legalese, every cloud contract I have signed was a promise made in nines: 99.9% for the VM, 99.99% for the load balancer, and eleven of them, 99.999999999%, for every object I put in S3. Nines are the common currency of reliability because they are easy to compare and easy to multiply. They are not a law of physics, though. They are a statistical claim, and it rests on one assumption: that things fail independently of each other.

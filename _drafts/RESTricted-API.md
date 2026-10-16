@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 'RESTricted API'
-categories: API
+tags: [API]
 ---
 
 RESTricted API

@@ -1,7 +1,8 @@
 ---
 layout: blog
 title: MongoDB Exercises
-categories: MongoDB 
+tags: [MongoDB]
+permalink: /mongodb/2021/10/17/exercises.html
 ---
 
 When I was searching for some exercises to practise querying MongoDB there was little to be found on the internet. All I found was rather simple but what is more important it was all synthetic examples. It was like the usual FAQ section on a typical company's webpage covering questions like: "How can you keep prices so low?" that I cannot imagine being ever asked.

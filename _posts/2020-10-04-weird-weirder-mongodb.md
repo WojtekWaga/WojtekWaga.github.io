@@ -2,7 +2,8 @@
 layout: blog
 title: 'Weird, weirder, MongoDB'
 date: 2020-10-04 12:06:47
-categories: MongoDB
+tags: [MongoDB]
+permalink: /mongodb/2020/10/04/weird-weirder-mongodb.html
 ---
 Moving from a SQL-backed database to MongoDB can be quite an experience. Your tables are gone along with the schema that used to be in the top 3 responsibilities of your architects and the last but not least you can think of relations as "it's complicated'. Soon after migration you start to realize that the tables you loved were no big deal and collections though slightly different will do the trick. Lack of the schema is more handy than not as you can enforce schema on the API level and easily upgrade your code without the need of ever calling the likes of ALTER TABLE. Relations are a bit different as data is relational by nature and you want to care for it in your DB. This last sentence makes it clear why a NoSQL database is a better term than non-relational database. 
 Things done! You have a running MongoDB instance that keeps your data and answers your questions all backed by carefully created indexes. You feel like an expert looking down on all the people still using obsolete SQL. Congratulations! You've just reached the peak of "Mount Stupid".

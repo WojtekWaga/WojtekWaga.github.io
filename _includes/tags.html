@@ -1,0 +1,7 @@
+{% if include.tags.size > 0 %}
+<span class="tags">
+{% for tag in include.tags %}
+<a class="tag" href="{{ '/blog' | prepend: site.baseurl }}?tag={{ tag | uri_escape }}" data-tag="{{ tag | escape }}">{{ tag }}</a>
+{% endfor %}
+</span>
+{% endif %}

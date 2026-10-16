@@ -1,7 +1,7 @@
 ---
 layout: page
 title: The $sort, the $group the ugly.
-categories: MongoDB 
+tags: [MongoDB]
 ---
 
 MongoDB let's you sort in memory if your data has no order guaranteed by an index (just like any other DB). The only difference here is that MongoDB wants to punish you much harder for this and your sort is limited to 32MB of memory for find().sort() and if you use equivalent sort in aggregate you get 100MB instead (why the difference? why those values?). You can put a lengthy parameter to allow disk use during sorting that suppressess the limit but it's too easy to leave an in-memory soft in the code when the dataset is small and instead of degrading performance over time get a full-blown crash. 

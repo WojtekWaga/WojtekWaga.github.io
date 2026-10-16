@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Transaction is a lie
-categories: Databases 
+tags: [Databases]
 ---
 
 If you are working with databases you are familiar with such notions as trasnsaction and ACID. It's fair to say that ACID is all about transactions. But do we need them so desparately that some go ad far as to say that you need ACID guarantees to even being called a database?
